@@ -2,14 +2,14 @@ import json
 
 import PloudosAPI
 import discord
+import os
 from discord.ext import commands
-from passwords_compiled import config
 
-session = PloudosAPI.login(config.get('login'), config.get('password'))
+session = PloudosAPI.login(os.getenv('LOGIN'), os.getenv('PASSWORD'))
 print(session.servers().get('shared')[0].serverName)
 server = session.servers().get('shared')[0]
 
-bot = commands.Bot(command_prefix=config['prefix'], help_command=None, intents=discord.Intents.all())
+bot = commands.Bot(command_prefix=os.getenv('PREFIX'), help_command=None, intents=discord.Intents.all())
 
 debugmode = True
 
@@ -81,4 +81,4 @@ async def on_command_error(ctx, error):
         await ctx.send(f'Произошла непредвиденная ошибка...\nПопробуйте прочитать сообщение:\n`{error}`')
 
 
-bot.run(config['token'])
+bot.run(os.getenv('TOKEN'))
