@@ -26,8 +26,9 @@ def start():
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def change_stop_role(ctx: commands.Context, new_role: discord.Role):
+    global stop_role
     stop_role = new_role.name
-    await ctx.send(f'Теперь <@&{new_role.id}> выключает сервер.')
+    await ctx.send('Теперь <@&{role}> выключает сервер.'.format(role=new_role.id))
 
 @bot.command()
 async def start_server(ctx: commands.Context, *arg):
